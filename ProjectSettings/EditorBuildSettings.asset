@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/AudioRoomsTutorial.unity
+    path: Assets/Scenes/Main.unity
+    guid: 695af386ff0c741ecb3ed8e183b97c0c
+  - enabled: 1
+    path: Assets/Scenes/AudioRooms.unity
     guid: c3511419f638a794ebcfbb6e37f216f8
   m_configObjects: {}

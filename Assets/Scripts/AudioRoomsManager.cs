@@ -28,9 +28,18 @@ public class AudioRoomsManager : MonoBehaviour
 
     protected async void Awake()
     {
+        // Request microphone permissions first
+        Permission.RequestUserPermission(Permission.Microphone);
+
+        // Wait until the user responds
+        while (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
+        {
+            Debug.Log("Waiting for microphone permission...");
+            await Task.Delay(2000);
+        }
+        
         // Create Client instance
         StreamClient = StreamVideoClient.CreateDefaultClient();
-
         var credentials = new AuthCredentials(_apiKey, _userId, _userToken);
 
         try
@@ -43,17 +52,6 @@ public class AudioRoomsManager : MonoBehaviour
         {
             // Log potential issues that occured during trying to connect
             Debug.LogException(e);
-        }
-        
-        // Request microphone permissions
-        Permission.RequestUserPermission(Permission.Microphone);
-
-        // Check if user granted microphone permission
-        if (!Permission.HasUserAuthorizedPermission(Permission.Microphone))
-        {
-            Debug.Log(
-                "no permission given to use microphone. Please enable it in the settings or grant permission when prompted.");
-            // Notify user that microphone permission was not granted and the microphone capturing will not work.
         }
     }
 
